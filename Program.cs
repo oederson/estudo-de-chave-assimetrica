@@ -28,7 +28,7 @@ static string GerarTokenAssinado(RSA rsa)
     var key = new RsaSecurityKey(rsa);
     var tokenDescriptor = new SecurityTokenDescriptor
     {
-        Subject = new ClaimsIdentity(new[] { new Claim("user", "exampleUser") }),
+        Subject = new ClaimsIdentity(new[] { new Claim("usuario", "examploUsuario") }),
         Expires = DateTime.UtcNow.AddHours(1),
         SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256Signature)
     };
