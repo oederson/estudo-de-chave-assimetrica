@@ -18,8 +18,8 @@ Console.WriteLine("\nToken:");
 Console.WriteLine(token.ToString());
 
 // Verificação da assinatura com a chave publica
-bool isValid = VerificarAssinatura(token, rsa);
-Console.WriteLine($"\nToken valido: {isValid}");
+bool eValido = VerificarAssinatura(token, rsa);
+Console.WriteLine($"\nToken valido: {eValido}");
     
 
 static string GerarTokenAssinado(RSA rsa)
@@ -43,7 +43,7 @@ static bool VerificarAssinatura(string token, RSA rsa)
     {
         IssuerSigningKey = new RsaSecurityKey(rsa),
         ValidateIssuerSigningKey = true,
-        ValidateIssuer = false,
+        ValidateIssuer = true,
         ValidateAudience = false 
     };
 
