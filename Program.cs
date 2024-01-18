@@ -30,7 +30,9 @@ static string GerarTokenAssinado(RSA rsa)
     {
         Subject = new ClaimsIdentity(new[] { new Claim("usuario", "examploUsuario") }),
         Expires = DateTime.UtcNow.AddHours(1),
-        SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256Signature)
+        SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256Signature),
+        Issuer = "emissor",  // Exemplo
+        Audience = "audiencia" // Exemplo
     };
     var token = tokenHandler.CreateToken(tokenDescriptor);
     return tokenHandler.WriteToken(token);
@@ -44,7 +46,10 @@ static bool VerificarAssinatura(string token, RSA rsa)
         IssuerSigningKey = new RsaSecurityKey(rsa),
         ValidateIssuerSigningKey = true,
         ValidateIssuer = true,
-        ValidateAudience = false 
+        ValidIssuer = "emissor", // Define o emissor esperado
+        ValidateAudience = true,
+        ValidAudience = "audiencia" // Define a audiência esperada
+
     };
 
     try
