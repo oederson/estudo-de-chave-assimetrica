@@ -54,9 +54,8 @@ static bool VerificarAssinatura(string token, RSA rsa)
 
     try
     {
-         SecurityToken validatedToken;
-         tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
-         return true;
+        tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+        return true;
     }
     catch (SecurityTokenException)
     {
@@ -67,12 +66,11 @@ static bool VerificarAssinatura(string token, RSA rsa)
 static string PegarPublicKey(RSA rsa)
 {
     RSAParameters publicKeyParams = rsa.ExportParameters(false);
-    RSAParameters publicKeyOnly = new RSAParameters
+    RSAParameters publicKeyOnly = new()
     {
         Modulus = publicKeyParams.Modulus,
         Exponent = publicKeyParams.Exponent
     };
-
     using RSA rsaPublicOnly = RSA.Create();
     rsaPublicOnly.ImportParameters(publicKeyOnly);
     return $"-----PUBLIC KEY-----\n{Convert.ToBase64String(rsaPublicOnly.ExportSubjectPublicKeyInfo())}\n-----FIM PUBLIC KEY-----";
