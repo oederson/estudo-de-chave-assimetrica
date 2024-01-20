@@ -49,7 +49,6 @@ static bool VerificarAssinatura(string token, RSA rsa)
         ValidIssuer = "emissor", // Define o emissor esperado
         ValidateAudience = true,
         ValidAudience = "audiencia" // Define a audiência esperada
-
     };
 
     try
@@ -57,10 +56,7 @@ static bool VerificarAssinatura(string token, RSA rsa)
         tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
         return true;
     }
-    catch (SecurityTokenException)
-    {
-         return false;
-    }
+    catch (SecurityTokenException){ return false; }
 }
 
 static string PegarPublicKey(RSA rsa)
